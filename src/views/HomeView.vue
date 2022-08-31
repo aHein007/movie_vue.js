@@ -1,18 +1,89 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <div class="home h-auto "  >
+    <NavBar @changeModel="changeModel" ></NavBar>
+    <MovieShow :opacityChange="opacityChange" @click="hideOpacity"></MovieShow>
+    
+      <div>
+        <MovieCard :movies="movies"></MovieCard>
+      </div>
+     
+      <div v-if="movies">
+        <BodyShow></BodyShow>
+      </div>
+
+      
+        
+      
+    </div>
+    <ShowAnime></ShowAnime>
+   
+   
+  
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import ShowAnime from '../components/ShowAnime'
+import BodyShow from '../components/BodyShow'
+import getData from '../composable/getData'
+import MovieCard from '../components/MovieCard'
+import MovieShow from '../components/MovieShow'
+import { ref, watch } from '@vue/runtime-core'
+import NavBar from '../components/NavBar'
+import getName from '../composable/getName'
+import { useRouter } from 'vue-router'
 export default {
-  name: 'HomeView',
   components: {
-    HelloWorld
+    ShowAnime,
+    BodyShow,
+    MovieCard,
+    MovieShow, NavBar },
+
+  
+
+
+  setup(){
+    let {userName} =getName()
+    let router =useRouter()
+    let opacityChange =ref(true)
+   
+
+    watch(userName,()=>{
+      if(!userName.value){
+        router.push({name:"welcomePage"})
+      }
+    })
+
+    let changeModel =(blockHistory)=>{
+      opacityChange.value=!opacityChange.value
+      blockHistory =!blockHistory
+    }
+
+
+    let hideOpacity =()=>{
+     opacityChange.value =!opacityChange.value
+    }
+
+
+    //fetch data from firebase
+    let {error,movies,moviesData} =getData()
+       moviesData()
+
+    
+
+    return {changeModel,opacityChange,hideOpacity,error,movies}
   }
 }
 </script>
+<style>
+
+.backdrop{
+   
+    top: 0;
+       background: rgba(151, 151, 151, 0.5);
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+     z-index: 1;
+   
+}
+</style>
