@@ -4,7 +4,7 @@
     <MovieShow :opacityChange="opacityChange" @click="hideOpacity"></MovieShow>
     
       <div>
-        <MovieCard :movies="movies"></MovieCard>
+        <MovieCardShow :movies="movies"></MovieCardShow>
       </div>
      
       <div v-if="movies">
@@ -22,20 +22,21 @@
 </template>
 
 <script>
+import MovieCardShow from '../components/MovieCardShow'
 import ShowAnime from '../components/ShowAnime'
 import BodyShow from '../components/BodyShow'
 import getData from '../composable/getData'
-import MovieCard from '../components/MovieCard'
 import MovieShow from '../components/MovieShow'
 import { ref, watch } from '@vue/runtime-core'
 import NavBar from '../components/NavBar'
 import getName from '../composable/getName'
 import { useRouter } from 'vue-router'
+
 export default {
   components: {
+    MovieCardShow,
     ShowAnime,
     BodyShow,
-    MovieCard,
     MovieShow, NavBar },
 
   

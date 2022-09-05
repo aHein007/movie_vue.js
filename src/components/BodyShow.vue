@@ -12,6 +12,7 @@
             <img src="../assets/mikasa.jpg" alt="" class="w-11/12 rounded-lg shadow-2xl transform  duration-500 ease-out hover:scale-110">
         </div>
 
+        
 
         <!-- image -->
     </div>

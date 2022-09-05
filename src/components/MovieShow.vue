@@ -2,22 +2,23 @@
  
   <div class="photosContainer "  >
     <div class="photosInner relative  ">
-      <div class="photos" :class="{opacity:opacityChange===false}">
-        <img src="" class="photo w-full h-[90vh] transition duration-200 ease-out shadow-2xl"  >
+      <div class="photos transition-margin duration-700" :class="{opacity:opacityChange===false}">
+        <img src="" class="photo w-full h-[85vh]  shadow-3xl"  >
       </div>
 
-       <div class="w-full h-full absolute top-0 my-60">
-        <button @click="forWard" class="text-white absolute right-0 "><i class="fa-solid fa-angle-right text-blue-400 text-3xl px-5"></i></button>
-        <button @click="backWard" class="text-white absolute left-0 "><i class="fa-solid fa-angle-left text-blue-400 text-3xl px-5"></i></button>
-       </div> 
+       
     </div>
   </div>
+  <div class="w-full h-full absolute top-0 my-80  ">
+        <button @click="forWard" class="text-white absolute right-0 "><i class="fa-solid fa-angle-right border opacity-60 border-white  rounded-full  bg-white text-black text-3xl px-3 mr-3"></i></button>
+        <button @click="backWard" class="text-white absolute left-0 "><i class="fa-solid fa-angle-left border  opacity-60 border-white rounded-full  bg-white text-black text-3xl px-3 ml-3"></i></button>
+  </div> 
   
 </template>
 
 <script>
 import { ref } from '@vue/reactivity'
-import { onBeforeMount, onMounted } from '@vue/runtime-core'
+import { onBeforeMount, onMounted, onUnmounted } from '@vue/runtime-core'
 export default {
    props:[
         'opacityChange'
@@ -34,13 +35,20 @@ export default {
 
     let currentPhoto =ref(0)
      onMounted(()=>{
+      
        photoClass =document.getElementsByClassName('photo')[0]
       photoClass.src ='https://wallpapercave.com/wp/wp10513232.png'
     })
 
-  let photoInterval = setInterval(()=>{
-      mainPhoto()
-     },8000)
+   
+    let inter =setInterval(()=>{
+        mainPhoto()
+      },5000)
+  
+
+    onUnmounted(()=>{
+      clearInterval(inter)
+    })
 
    let forWard =()=>{
       mainPhoto()
@@ -51,13 +59,16 @@ export default {
     }
 
 let mainPhoto =()=>{
+    let transition =true
      photoClass =document.getElementsByClassName('photo')[0]
+     let imageTag =document.getElementsByTagName("img")[0]
      
       let photoCounter =photos.value[currentPhoto.value]
       photoClass.src =photoCounter
-       currentPhoto.value += 1
+       currentPhoto.value++
+      
     
-      if(currentPhoto.value == 5){
+      if(currentPhoto.value == 4){
         photoClass.src ='https://wallpapercave.com/wp/wp10513232.png'
         currentPhoto.value =0
       }
@@ -75,5 +86,7 @@ let mainPhoto =()=>{
 </script>
 
 <style>
-
+.imageEffect{
+ transform: scale(110px);
+}
 </style>

@@ -1,6 +1,6 @@
 <template>
      <p class="text-2xl p-5 ml-5 text-white">Animation</p>
-  <div class=" ml-4 inline-block mb-5 card-container   w-80 h-5/6   border border-gray-700 rounded-2xl shadow-2xl text-white transform duration-300 hover:scale-105">
+  <div class=" ml-4 inline-block mb-5 card-container   w-80 h-96   border border-gray-700 rounded-2xl shadow-2xl text-white transform duration-300 hover:scale-105">
     <div>
         <div class="text-white">
            
@@ -9,7 +9,7 @@
             <div class="relative">
                 <img src="../assets/photo1.jpg" alt="" class=" h-32 w-full rounded-t-2xl hover:object-cover ">
                 <div class="absolute bottom-0  m-auto p-2 px-3 text-3xl text-blue-500">
-                    <i class="fa-solid fa-circle-play"></i>
+                    <i class="fa-solid fa-circle-play" @click="testing"></i>
                 </div> 
                 
                  <div class="absolute top-0 right-0  m-auto p-2 px-3 text-3xl text-blue-500">
@@ -36,7 +36,17 @@
 
 <script>
 export default {
+    setup(){
+        
+        let testing=()=>{
+            console.log("hi")
+        }
 
+
+
+
+        return {testing}
+    }
 }
 </script>
 

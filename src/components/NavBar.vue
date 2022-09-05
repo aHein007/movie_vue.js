@@ -42,7 +42,9 @@ import { ref } from '@vue/reactivity'
 import { onMounted } from '@vue/runtime-core'
 
 export default {
+  emits: ["changeModel"],
  setup(props,context){
+ 
   let blockHistory =ref(false)
   let allHistory =ref([]);
   let history =ref("");

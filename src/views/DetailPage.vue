@@ -1,7 +1,9 @@
 <template>
-    <div class="text-white relative shadow-2xl" v-if="singleMovie">
-        <img :src="singleMovie.images" alt="" class="h-screen  opacity-50  w-full">
+    <div class="w-full h-full ">
+        <div class="text-white relative shadow-2xl" v-if="singleMovie">
+        <img :src="singleMovie.images" alt="" class=" opacity-50  w-full h-[90vh]">
         
+        <router-link :to="{name:'home'}"><div class=" text-2xl text-black  absolute top-0 m-5 py-2 px-4"><i class="fa-solid fa-arrow-left"></i></div></router-link>
 
         <div class="p-10 absolute bottom-0  py-16">
             
@@ -47,9 +49,10 @@
     </div>
        
        
-            <div class="mainWidth w-6/12 h-80  px-5 mx-5 bg-slate-700  flex overflow-hidden relative">
+        <div class="flex justify-center mt-10">
+            <div class="mainWidth w-6/12 h-80   px-5 mx-5 bg-slate-700  flex overflow-hidden relative">
             
-           
+            
             <div class="absolute top-0 bottom-0 flex items-center z-10">
                 <i @click="backBtn" class=" fa-solid fa-angle-left arrows"></i>
             </div>
@@ -71,6 +74,19 @@
             
             
         </div>
+        </div>
+
+       <div class=" grid grid-cols-4 gap-1">
+        <div class="col-span-2">
+            <DownLoad></DownLoad>
+        </div>
+        
+       <div class="col-span-2">
+        <PostUser></PostUser>
+       </div>
+       </div>
+       
+    </div>
 
         
        
@@ -81,11 +97,16 @@
 </template>
 
 <script>
+import PostUser from '../components/PostUser'
+import DownLoad from '../components/DownLoad'
 import { ref } from '@vue/reactivity';
 import singleData from '../composable/singleData';
 import { db } from '@/firebase/config';
+import { onMounted} from '@vue/runtime-core';
 
 export default {
+  components: {
+    PostUser, DownLoad },
 
   
     props:[
@@ -99,6 +120,7 @@ export default {
         let like =ref(true)
         let getSlideCount =ref(0)
         let nowShowSlide =ref(5)
+       
         
 
         let imageContainer =ref([
@@ -163,6 +185,10 @@ export default {
             image.src=singleMovie.value.images
         }
     }
+
+    onMounted(()=>{
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    })
 
 
     
