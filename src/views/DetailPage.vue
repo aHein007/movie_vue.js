@@ -77,14 +77,23 @@
         </div>
 
        <div class=" grid grid-cols-4 gap-1">
+        <!-- download UI -->
         <div class="col-span-2">
             <DownLoad></DownLoad>
         </div>
-        
-       <div class="col-span-2">
-        <PostUser></PostUser>
+
+        <!-- post from -->
+        <div class="col-span-2">
+            <PostUser></PostUser>
        </div>
        </div>
+
+       <!-- post box Ui -->
+       <div>
+        <SuggessPost></SuggessPost>
+       </div>
+
+       
        
     </div>
 
@@ -97,6 +106,7 @@
 </template>
 
 <script>
+import SuggessPost from '../components/SuggessPost'
 import PostUser from '../components/PostUser'
 import DownLoad from '../components/DownLoad'
 import { ref } from '@vue/reactivity';
@@ -106,6 +116,7 @@ import { onMounted} from '@vue/runtime-core';
 
 export default {
   components: {
+    SuggessPost,
     PostUser, DownLoad },
 
   

@@ -1,14 +1,7 @@
 <template>
-  <!--
-  This component uses @tailwindcss/forms
 
-  yarn add @tailwindcss/forms
-  npm install @tailwindcss/forms
 
-  plugins: [require('@tailwindcss/forms')]
--->
-
-<div class="px-4 py-16 mx-auto max-w-screen-xl sm:px-6 lg:px-8">
+<div class="px-4 py-16 mx-auto max-w-screen-xl sm:px-6 lg:px-8 ">
   <div class="max-w-lg mx-auto m-5 ml-20">
     <div class="lg:text-md text-gray-300 font-bold ">Please Enter Your Suggestion</div>
 
