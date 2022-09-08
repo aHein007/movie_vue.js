@@ -2,15 +2,7 @@
 
   
   <router-view/>
-  <footer class=" relative"> 
-    <!-- footer -->
-    <div class="bg-gray-800 w-full ">
-     
-    </div>
-
-    <!-- cookie -->
-     <CookieBar ></CookieBar>
-  </footer>
+  
 </template>
 
 <script>

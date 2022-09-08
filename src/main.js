@@ -3,6 +3,8 @@ import App from './App.vue'
 import router from './router'
 import "./assets/global.css"
 import { auth } from './firebase/config'
+import 'tw-elements';
+
 
 let app;
 

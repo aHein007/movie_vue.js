@@ -1,9 +1,18 @@
 <template>
-    <div class="w-full h-full ">
+    
+    <div class="w-full h-full relative" >
+        
+        <div  class="flex justify-center" :class="{model:changeModel ==true}">
+            
+            <img   src=""  class=" absolute z-10 w-8/12 h-fix object-cover mt-20" id="model_image">
+            <i v-if="changeModel==true" class="fa-solid fa-xmark  absolute flex right-0 p-20 z-10 cursor-pointer text-rose-600 text-3xl" @click="close"></i>
+        </div>
+        
+       
         <div class="text-white relative shadow-2xl" v-if="singleMovie">
         <img :src="singleMovie.images" alt="" class=" opacity-50  w-full h-[90vh]">
         
-        <router-link :to="{name:'home'}"><div class=" text-2xl text-black  absolute top-0 m-5 py-2 px-4"><i class="fa-solid fa-arrow-left"></i></div></router-link>
+        <router-link :to="{name:'home'}"><div class=" text-2xl text-rose-600  absolute top-0 m-5 py-2 px-4"><i class="fa-solid fa-arrow-left"></i></div></router-link>
 
         <div class="p-10 absolute bottom-0  py-16">
             
@@ -50,6 +59,7 @@
        
        
         <div class="flex justify-center mt-10">
+           
             <div class="mainWidth w-6/12 h-80   px-5 mx-5 bg-slate-700  flex overflow-hidden relative">
             
             
@@ -66,15 +76,22 @@
            
            <div class=" flex justify-center w-full  overflow-hidden " id="slide">
                 <div class="">
-                    <img :src="singleMovie.images" class="image w-full h-full transition-all duration-700 ease-in-out "  @click="showImage">
+                    <img :src="singleMovie.images" class="image cursor-pointer w-full h-full transition-all duration-700 ease-in-out "  @click.self="showImage">
+                    
                 </div>
                 
            </div>
 
+          
+
             
             
         </div>
+        
         </div>
+        
+           
+       
 
        <div class=" grid grid-cols-4 gap-1">
         <!-- download UI -->
@@ -93,7 +110,9 @@
         <SuggessPost></SuggessPost>
        </div>
 
-       
+       <div>
+        <CookieBar></CookieBar>
+       </div>
        
     </div>
 
@@ -106,6 +125,13 @@
 </template>
 
 <script>
+//bootStrap 
+//1. npm i bootstrap install
+//2. npm i @popperjs/core
+//3.import 'bootstrap/dist/css/bootstrap.css'
+//  import 'bootstrap/dist/js/bootstrap.js'
+
+import CookieBar from '../components/CookieBar'
 import SuggessPost from '../components/SuggessPost'
 import PostUser from '../components/PostUser'
 import DownLoad from '../components/DownLoad'
@@ -116,6 +142,8 @@ import { onMounted} from '@vue/runtime-core';
 
 export default {
   components: {
+    CookieBar,
+    
     SuggessPost,
     PostUser, DownLoad },
 
@@ -128,6 +156,7 @@ export default {
 
     setup(props){
         let changeBtn =ref(false)
+        let changeModel =ref(false);
         let like =ref(true)
         let getSlideCount =ref(0)
         let nowShowSlide =ref(5)
@@ -202,10 +231,24 @@ export default {
     })
 
 
-    
+    let showImage =()=>{
+        let image =document.getElementsByClassName("image")[0];
+        let modelImage =document.getElementById("model_image");
+
+        modelImage.src =image.src
+        changeModel.value =!changeModel.value
+        window.scrollTo({top:0,behavior:"smooth"})
+    }
+
+    let close =()=>{
+
+        let modelImage =document.getElementById("model_image");
+        modelImage.src ="";
+        changeModel.value=false
+    }
 
 
-       return {error,oneMovie,singleMovie,like,favButton,UnfavButton,changeBtn,imageContainer,nextBtn,backBtn}
+       return {error,oneMovie,singleMovie,like,favButton,UnfavButton,changeBtn,imageContainer,nextBtn,backBtn,showImage,changeModel,close}
     }
  
 

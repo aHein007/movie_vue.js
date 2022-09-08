@@ -16,12 +16,15 @@
       
     </div>
     <ShowAnime></ShowAnime>
+    
+    <CookieBar></CookieBar>
    
    
   
 </template>
 
 <script>
+import CookieBar from '../components/CookieBar'
 import MovieCardShow from '../components/MovieCardShow'
 import ShowAnime from '../components/ShowAnime'
 import BodyShow from '../components/BodyShow'
@@ -34,6 +37,7 @@ import { useRouter } from 'vue-router'
 
 export default {
   components: {
+    CookieBar,
     MovieCardShow,
     ShowAnime,
     BodyShow,

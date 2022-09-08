@@ -82,7 +82,7 @@ import { onMounted } from '@vue/runtime-core'
           console.log("false")
          }
 
-          console.log(slider.style.marginLeft)
+        
          
         }
   
