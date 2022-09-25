@@ -38,7 +38,7 @@
     <div class="carousel-item active relative float-left w-full">
       <img
         src="../assets/slidePhoto/YourName.jpg"
-        class="block w-full h-[80vh]"
+        class="block w-full h-[85vh]"
         alt="..."
       />
       <div class="carousel-caption hidden md:block absolute text-center mb-20">
@@ -49,7 +49,7 @@
     <div class="carousel-item relative float-left w-full ">
       <img
         src="../assets/slidePhoto/demon7.jpg"
-        class="block w-full h-[80vh]"
+        class="block w-full h-[85vh]"
         alt="..."
       />
       <div class="carousel-caption hidden md:block absolute text-center mb-20">
@@ -60,7 +60,7 @@
     <div class="carousel-item relative float-left w-full">
       <img
         src="../assets/slidePhoto/Weather.jpg"
-        class="block w-full h-[80vh]"
+        class="block w-full h-[85vh]"
         alt="..."
       />
       <div class="carousel-caption hidden md:block absolute text-center mb-20">
@@ -72,7 +72,7 @@
     <div class="carousel-item relative float-left w-full">
       <img
         src="../assets/slidePhoto/Boruto.jpg"
-        class="block w-full h-[80vh]"
+        class="block w-full h-[85vh]"
         alt="..."
       />
       <div class="carousel-caption hidden md:block absolute text-center mb-20">

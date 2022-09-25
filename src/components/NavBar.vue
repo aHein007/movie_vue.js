@@ -10,7 +10,9 @@
       
       <input type="text" class="searchInput lg:w-96 md:w-44 md:py-5 sm:w-44 " placeholder="Search movie name" @click="blackModel" @keypress.enter="searchHistory" v-model="history">
       <div v-if="blockHistory==true" class="inputBox ">
-        <div v-for="oneHistory in allHistory" :key="oneHistory" class="p-3 border-b-2 border-gray-700">{{ oneHistory }} <i class=" float-right cursor-pointer fa-solid fa-xmark p-1 text-rose-600" @click="deleteHistory(oneHistory)"></i></div>
+        <div v-for="oneHistory in allHistory" :key="oneHistory" class="p-3 border-b-2 border-gray-700 cursor-pointer"><span @click="goDetail">
+          {{ oneHistory }}
+        </span><i class=" float-right cursor-pointer fa-solid fa-xmark p-1 text-rose-600" @click="deleteHistory(oneHistory)"></i></div>
       </div>
      </div>
 
@@ -40,16 +42,20 @@ import  signOut  from "../composable/signOut"
 import getName from "../composable/getName"
 import { ref } from '@vue/reactivity'
 import { onMounted } from '@vue/runtime-core'
-
+import getData from "../composable/getData"
+import { useRouter } from "vue-router"
 export default {
   emits: ["changeModel"],
  setup(props,context){
  
   let blockHistory =ref(false)
   let allHistory =ref([]);
+  let router =useRouter()
   let history =ref("");
   let  {userName} =getName()
   let {error,signOutAccount} =signOut()
+  let {movies,moviesData} =getData()
+  
   let historyText =ref("your last history is.....")
    
  
@@ -63,16 +69,39 @@ export default {
   }
 
 
-  let searchHistory =()=>{
+  let searchHistory =async()=>{
    let put = allHistory.value.push(history.value)
    let storage =localStorage.setItem('historyData',`${historyText.value  +" "+ history.value }`)
-
+   
    //search movie
+   movies.value.filter((movie)=>{
+      moviesData()
+      let result = movie.title.toLowerCase() == history.value;
+      if(result ==true){
+        router.push({name:'detailPage',params:{id:movie.id}})
+      }else{
+        console.log("Your result is not found!")
+      }
+      return result
+    })
     
 
 
    history.value =""
   
+  }
+
+  let goDetail =()=>{
+    movies.value.filter((movie)=>{
+      moviesData()
+      let result = movie.title.toLowerCase() == history.value;
+      if(result ==true){
+        router.push({name:'detailPage',params:{id:movie.id}})
+      }else{
+        console.log("Your result is not found!")
+      }
+      return result
+    })
   }
 
   onMounted(()=>{
@@ -90,7 +119,7 @@ export default {
 
   
 
-  return {userName,userSignOut,error,blackModel,blockHistory,searchHistory,allHistory,history,deleteHistory}
+  return {userName,userSignOut,error,blackModel,blockHistory,searchHistory,allHistory,history,deleteHistory,movies,goDetail}
  }
 }
 </script>

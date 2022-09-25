@@ -10,15 +10,15 @@
     </p>
   </div>
 
-  <form action="" class="max-w-md mx-auto mt-8 mb-0 space-y-4">
+  <form  class="max-w-md mx-auto mt-8 mb-0 space-y-4" @submit.prevent="post">
     <div>
-      <label for="email" class="sr-only">Email</label>
+      <label for="name" class="sr-only">name</label>
 
       <div class="relative">
         <input
-          type="email"
+          type="name" v-model="name"
           class="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm  bg-gray-700 text-white"
-          placeholder="Enter email"
+          placeholder="Enter name"
         />
 
         
@@ -28,7 +28,7 @@
     <div>
       <label for="password" class="sr-only">Post</label>
       <div class="relative">
-        <textarea  cols="30" rows="4" type="text" class="w-full p-5  text-sm border-gray-200 rounded-lg shadow-sm bg-gray-700 text-white" placeholder="Enter Your Suggestion...."></textarea>
+        <textarea  cols="30" rows="4" type="text" class="w-full p-5  text-sm border-gray-200 rounded-lg shadow-sm bg-gray-700 text-white" placeholder="Enter Your Suggestion...." v-model="message"></textarea>
 
        
       </div>
@@ -49,8 +49,33 @@
 </template>
 
 <script>
+import { ref } from '@vue/reactivity'
+import { timestamp } from '@/firebase/config';
+import userPost from "../composable/userPost"
 export default {
+  setup(props,context){
+    let name =ref("");
+    let message =ref("");
+    let {error,userPostMessage} =userPost()
 
+   
+
+    let post =async()=>{
+      let update ={
+        name:name.value,
+        messages:message.value,
+        created_at:timestamp()
+      }
+     await userPostMessage("messages",update)
+     
+     name.value ="",
+     message.value =""
+    }
+
+    return {
+      name,message,post
+    }
+  }
 }
 </script>
 

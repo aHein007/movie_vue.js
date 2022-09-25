@@ -73,6 +73,6 @@
 
 
 .model{
-    @apply bg-gray-600 opacity-100 h-full w-full absolute z-50
+    @apply bg-black opacity-100 h-full w-full absolute z-50
 }
 

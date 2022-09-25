@@ -25,14 +25,23 @@
                     <p class="inline mr-2">{{ singleMovie.year }}</p>  | <!--  this is year -->
                     <p class="inline mx-2">{{ singleMovie.rating }}<i class="fa-solid fa-star text-yellow-400 ml-1"></i></p>  <!--  this is rating -->
                     <p class="category " v-for="category in singleMovie.categorys" :key="category">{{ category }}</p> 
-                </div>
+                </div> 
             
-            <p class="mt-10">{{ singleMovie.description }}</p>
+            <p class="mt-10">{{ seemoreBtn }} 
+            <i @click="seemoreDe=!seemoreDe"  class="see text-black  text-decoration-none hover:text-blue-600  cursor-pointer" >
+                <p v-if="seemoreDe == false">
+                ...seemore
+                </p>
+
+                <p v-if="seemoreDe == true">
+                    ...close
+                </p>
+            </i> </p>
            
         </div>
-    </div>
+    </div> 
 
-    <div class="p-10 flex text-center ">
+    <div class="p-10 flex text-center ">   
         <div class=" bg-blue-500  w-28 p-1 rounded-md cursor-pointer  text-white mr-5 shadow-xl">
             Play
         </div> 
@@ -138,7 +147,7 @@ import DownLoad from '../components/DownLoad'
 import { ref } from '@vue/reactivity';
 import singleData from '../composable/singleData';
 import { db } from '@/firebase/config';
-import { onMounted} from '@vue/runtime-core';
+import { computed, onMounted} from '@vue/runtime-core';
 
 export default {
   components: {
@@ -156,10 +165,12 @@ export default {
 
     setup(props){
         let changeBtn =ref(false)
+        let seeText =ref(false);
         let changeModel =ref(false);
         let like =ref(true)
         let getSlideCount =ref(0)
         let nowShowSlide =ref(5)
+        let seemoreDe =ref(false)
        
         
 
@@ -194,7 +205,30 @@ export default {
       await db.collection("movie").doc(props.id).update(change)
     }
 
+    //see more text
+    let seemoreBtn =computed(()=>{
+    
+       
+        
+    
+        
+    if(seemoreDe.value == false && singleMovie.value.description){
+      
+        return  singleMovie.value.description.substring(0,500) 
+    }else if(singleMovie.value.description){
+        
+        seemoreDe.value =true
+        return singleMovie.value.description
+    }
 
+   
+    
+    
+    })
+
+    
+
+ 
     // next Btn
     let nextBtn=()=>{
         let getSlide =document.getElementById("slide");
@@ -248,7 +282,10 @@ export default {
     }
 
 
-       return {error,oneMovie,singleMovie,like,favButton,UnfavButton,changeBtn,imageContainer,nextBtn,backBtn,showImage,changeModel,close}
+       return {error,oneMovie,singleMovie,like,favButton,
+        UnfavButton,changeBtn,imageContainer,nextBtn,
+        backBtn,showImage,
+        changeModel,close,seemoreBtn,seemoreDe,seeText}
     }
  
 
